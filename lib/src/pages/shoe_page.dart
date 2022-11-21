@@ -12,13 +12,13 @@ class ShoePage extends StatelessWidget {
       // body: ZapatoSizePreview(),
       body: Column(
         children: [
-          CustomAppBar(texto: 'For you'),
+          const CustomAppBar(texto: 'For you'),
           const SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
-                children: [
+                children: const [
                   ZapatoSizePreview(),
                   ZapatoDescripcion(
                     titulo: 'Nike Air Max 720',
@@ -29,7 +29,7 @@ class ShoePage extends StatelessWidget {
               ),
             ),
           ),
-          AgregarCarritoBoton(monto: 180.0),
+          const AgregarCarritoBoton(monto: 180.0),
         ],
       ),
     );
