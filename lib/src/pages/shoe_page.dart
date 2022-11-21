@@ -8,8 +8,6 @@ class ShoePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: CustomAppBar(texto: 'For you'),
-      // body: ZapatoSizePreview(),
       body: Column(
         children: [
           const CustomAppBar(texto: 'For you'),
@@ -19,7 +17,10 @@ class ShoePage extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: const [
-                  ZapatoSizePreview(),
+                  Hero(
+                    tag: 'zapato-1',
+                    child: ZapatoSizePreview(),
+                  ),
                   ZapatoDescripcion(
                     titulo: 'Nike Air Max 720',
                     descripcion:

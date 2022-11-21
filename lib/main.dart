@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:shoesapp/src/models/zapato_model.dart';
 
-import 'package:shoesapp/src/pages/shoe_desc_page.dart';
 import 'package:shoesapp/src/pages/shoe_page.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ZapatoModel(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,8 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ShoesApp',
-      home: ZapatoDescPage(),
-      // home: ShoePage(),
+      home: ShoePage(),
     );
   }
 }

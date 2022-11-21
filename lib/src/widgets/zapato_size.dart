@@ -1,4 +1,10 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:shoesapp/src/models/zapato_model.dart';
+
+import 'package:shoesapp/src/pages/shoe_desc_page.dart';
 
 class ZapatoSizePreview extends StatelessWidget {
   final bool fullScreen;
@@ -10,32 +16,44 @@ class ZapatoSizePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: (fullScreen) ? 0 : 30,
-        vertical: (fullScreen) ? 0 : 0,
-      ),
-      child: Container(
-        width: double.infinity,
-        height: 400,
-        decoration: BoxDecoration(
-          color: const Color(0xffFFCF53),
-          borderRadius: (fullScreen)
-              ? const BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                  // topLeft: Radius.circular(30),
-                  // topRight: Radius.circular(30),
-                )
-              : BorderRadius.circular(50),
+    return GestureDetector(
+      onTap: () {
+        if (!fullScreen) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ZapatoDescPage(),
+            ),
+          );
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: (fullScreen) ? 0 : 30,
+          vertical: (fullScreen) ? 0 : 0,
         ),
-        child: Column(
-          children: [
-            // zapato con sombra
-            _ZapatoConSombra(),
-            // tallas
-            if (!fullScreen) const _ZapatoTallas(),
-          ],
+        child: Container(
+          width: double.infinity,
+          height: 400,
+          decoration: BoxDecoration(
+            color: const Color(0xffFFCF53),
+            borderRadius: (fullScreen)
+                ? const BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                    // topLeft: Radius.circular(30),
+                    // topRight: Radius.circular(30),
+                  )
+                : BorderRadius.circular(50),
+          ),
+          child: Column(
+            children: [
+              // zapato con sombra
+              _ZapatoConSombra(),
+              // tallas
+              if (!fullScreen) const _ZapatoTallas(),
+            ],
+          ),
         ),
       ),
     );
@@ -47,16 +65,18 @@ class _ZapatoConSombra extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final zapatoModel = Provider.of<ZapatoModel>(context);
+
     return Padding(
       padding: const EdgeInsets.all(50),
       child: Stack(
         children: [
-          Positioned(
+          const Positioned(
             bottom: 20,
             right: 0,
             child: _ZapatoSombra(),
           ),
-          Image(image: AssetImage('assets/imgs/azul.png')),
+          Image(image: AssetImage(zapatoModel.assetImage)),
         ],
       ),
     );
@@ -119,26 +139,38 @@ class _TallaZapatoCaja extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 42,
-      height: 42,
-      decoration: BoxDecoration(
-          color: (numero == 9) ? Color(0xffF1A23A) : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            if (numero == 9)
-              BoxShadow(
-                  color: Color(0xffF1A23A),
-                  blurRadius: 10,
-                  offset: Offset(0, 5)),
-          ]),
-      child: Text(
-        numero.toString().replaceAll('.0', ''),
-        style: TextStyle(
-          color: (numero == 9) ? Colors.white : Color(0xffF1A23A),
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+    final zapatoModel = Provider.of<ZapatoModel>(context);
+
+    return GestureDetector(
+      onTap: () {
+        final zapatoModel = Provider.of<ZapatoModel>(context, listen: false);
+        zapatoModel.talla = numero;
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 42,
+        height: 42,
+        decoration: BoxDecoration(
+            color: (numero == zapatoModel.talla)
+                ? const Color(0xffF1A23A)
+                : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              if (numero == zapatoModel.talla)
+                const BoxShadow(
+                    color: Color(0xffF1A23A),
+                    blurRadius: 10,
+                    offset: Offset(0, 5)),
+            ]),
+        child: Text(
+          numero.toString().replaceAll('.0', ''),
+          style: TextStyle(
+            color: (numero == zapatoModel.talla)
+                ? Colors.white
+                : const Color(0xffF1A23A),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

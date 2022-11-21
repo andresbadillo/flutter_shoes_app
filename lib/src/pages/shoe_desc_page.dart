@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:animate_do/animate_do.dart';
+import 'package:shoesapp/src/models/zapato_model.dart';
 import '../widgets/custom_widgets.dart';
 
 class ZapatoDescPage extends StatelessWidget {
@@ -12,7 +16,10 @@ class ZapatoDescPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              const ZapatoSizePreview(fullScreen: true),
+              const Hero(
+                tag: 'zapato-1',
+                child: ZapatoSizePreview(fullScreen: true),
+              ),
               Positioned(
                 top: 50,
                 child: FloatingActionButton(
@@ -20,7 +27,9 @@ class ZapatoDescPage extends StatelessWidget {
                   highlightElevation: 0,
                   backgroundColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   autofocus: false,
                   child: const Icon(
                     Icons.chevron_left,
@@ -128,17 +137,33 @@ class _ColoresYmas extends StatelessWidget {
               children: [
                 Positioned(
                   left: 90,
-                  child: _BotonColor(color: Color(0xffC6D642)),
+                  child: _BotonColor(
+                    color: Color(0xffC6D642),
+                    index: 4,
+                    urlImg: 'assets/imgs/verde.png',
+                  ),
                 ),
                 Positioned(
                   left: 60,
-                  child: _BotonColor(color: Color(0xffFFAD29)),
+                  child: _BotonColor(
+                    color: Color(0xffFFAD29),
+                    index: 3,
+                    urlImg: 'assets/imgs/amarillo.png',
+                  ),
                 ),
                 Positioned(
                   left: 30,
-                  child: _BotonColor(color: Color(0xff2099F1)),
+                  child: _BotonColor(
+                    color: Color(0xff2099F1),
+                    index: 2,
+                    urlImg: 'assets/imgs/azul.png',
+                  ),
                 ),
-                _BotonColor(color: Color(0xff364D56)),
+                _BotonColor(
+                  color: Color(0xff364D56),
+                  index: 1,
+                  urlImg: 'assets/imgs/negro.png',
+                ),
               ],
             ),
           ),
@@ -156,20 +181,34 @@ class _ColoresYmas extends StatelessWidget {
 
 class _BotonColor extends StatelessWidget {
   final Color color;
+  final int index;
+  final String urlImg;
 
   const _BotonColor({
     Key? key,
     required this.color,
+    required this.index,
+    required this.urlImg,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 45,
-      height: 45,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
+    return FadeInLeft(
+      delay: Duration(milliseconds: index * 100),
+      duration: const Duration(milliseconds: 300),
+      child: GestureDetector(
+        onTap: () {
+          final zapatoModel = Provider.of<ZapatoModel>(context, listen: false);
+          zapatoModel.assetImage = urlImg;
+        },
+        child: Container(
+          width: 45,
+          height: 45,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
       ),
     );
   }
@@ -187,16 +226,17 @@ class _MontoBuyNow extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(top: 20, bottom: 20),
         child: Row(
-          children: const [
+          children: [
             Text(
               '\$180.0',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            Spacer(),
-            BotonNaranja(
-              texto: 'Buy now',
-              width: 120,
-              height: 40,
+            const Spacer(),
+            Bounce(
+              from: 10,
+              delay: const Duration(milliseconds: 300),
+              child:
+                  const BotonNaranja(texto: 'Buy now', width: 120, height: 40),
             ),
           ],
         ),
