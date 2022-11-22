@@ -140,7 +140,7 @@ class _ColoresYmas extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                  left: 90,
+                  left: 99,
                   child: _BotonColor(
                     color: Color(0xffC6D642),
                     index: 4,
@@ -148,7 +148,7 @@ class _ColoresYmas extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 60,
+                  left: 66,
                   child: _BotonColor(
                     color: Color(0xffFFAD29),
                     index: 3,
@@ -156,7 +156,7 @@ class _ColoresYmas extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 30,
+                  left: 33,
                   child: _BotonColor(
                     color: Color(0xff2099F1),
                     index: 2,
@@ -174,7 +174,7 @@ class _ColoresYmas extends StatelessWidget {
           const BotonNaranja(
             texto: 'More related items',
             height: 30,
-            width: 170,
+            width: 150,
             color: Color(0xffFFC675),
           )
         ],

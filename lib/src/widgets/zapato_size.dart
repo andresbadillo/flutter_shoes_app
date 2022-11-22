@@ -49,7 +49,7 @@ class ZapatoSizePreview extends StatelessWidget {
           child: Column(
             children: [
               // zapato con sombra
-              _ZapatoConSombra(),
+              const _ZapatoConSombra(),
               // tallas
               if (!fullScreen) const _ZapatoTallas(),
             ],
@@ -91,7 +91,7 @@ class _ZapatoSombra extends StatelessWidget {
     return Transform.rotate(
       angle: -0.5,
       child: Container(
-        width: 230,
+        width: 200,
         height: 120,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
@@ -113,7 +113,7 @@ class _ZapatoTallas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

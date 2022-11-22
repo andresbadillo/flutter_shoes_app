@@ -1,13 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void cambiarStatusLight() {
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle.light,
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
   );
 }
 
 void cambiarStatusDark() {
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle.dark,
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
   );
 }
